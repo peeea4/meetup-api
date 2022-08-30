@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
+import {
+    Body,
+    Controller,
+    Delete,
+    Get,
+    Param,
+    Post,
+    Put,
+} from "@nestjs/common";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 
 import { CreateMeetupDto } from "./dto/create-meetup.dto";
@@ -13,7 +21,7 @@ export class MeetupsController {
     @ApiOperation({ summary: "Create meetup" })
     @ApiResponse({ status: 200, type: Meetup })
     @Post()
-    create(@Body() meetupDto: CreateMeetupDto) {
+    createOne(@Body() meetupDto: CreateMeetupDto) {
         return this.meetupService.createMeetup(meetupDto);
     }
 
@@ -22,6 +30,27 @@ export class MeetupsController {
     @Get()
     getAll() {
         return this.meetupService.getAllMeetups();
+    }
+
+    @ApiOperation({ summary: "Get one meetup by id" })
+    @ApiResponse({ status: 200, type: [Meetup] })
+    @Get("/:id")
+    getOne(@Param("id") id: number) {
+        return this.meetupService.getOneMeetup(id);
+    }
+
+    @ApiOperation({ summary: "Update one meetup by id" })
+    @ApiResponse({ status: 200, type: [Meetup] })
+    @Put("/:id")
+    updateOne(@Body() meetupDto: CreateMeetupDto, @Param("id") id: number) {
+        return this.meetupService.updateMeetup(id, meetupDto);
+    }
+
+    @ApiOperation({ summary: "Delete one meetup by id" })
+    @ApiResponse({ status: 200, type: [Meetup] })
+    @Delete("/:id")
+    deleteOne(@Param("id") id: number) {
+        return this.meetupService.deleteMeetup(id);
     }
 }
 
