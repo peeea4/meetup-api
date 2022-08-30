@@ -2,8 +2,9 @@ import { ApiProperty } from "@nestjs/swagger";
 import { Column, DataType, Model, Table } from "sequelize-typescript";
 
 interface MeetupCreationAttribute {
+    name: string;
     description: string;
-    date: string;
+    timeAndPlace: string;
     keyWords: string[];
 }
 
@@ -19,20 +20,32 @@ export class Meetup extends Model<Meetup, MeetupCreationAttribute> {
     id: number;
 
     @ApiProperty({
+        example: "Meetup#2",
+        description: "Name Or Theme Of The Meetup",
+    })
+    @Column({
+        type: DataType.STRING,
+    })
+    name: string;
+
+    @ApiProperty({
         example: "Meetup description...",
-        description: "Description",
+        description: "Meetup Description",
     })
     @Column({
         type: DataType.STRING,
     })
     description: string;
 
-    @ApiProperty({ example: "22.10.2023", description: "Date" })
+    @ApiProperty({
+        example: "22.10.2023 19.00 Zoom",
+        description: "Time And Place",
+    })
     @Column({
         type: DataType.STRING,
     })
-    date: string;
-    
+    timeAndPlace: string;
+
     @ApiProperty({ example: ["key1", "key2"], description: "Key Words" })
     @Column({
         type: DataType.ARRAY(DataType.STRING),
