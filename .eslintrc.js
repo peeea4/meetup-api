@@ -5,11 +5,12 @@ module.exports = {
         tsconfigRootDir: __dirname,
         sourceType: "module",
     },
-    plugins: ["@typescript-eslint/eslint-plugin", "simple-import-sort"],
+    plugins: ["@typescript-eslint/eslint-plugin", "simple-import-sort", "@darraghor/nestjs-typed"],
     extends: [
         "eslint:recommended",
         "plugin:@typescript-eslint/eslint-recommended",
         "plugin:@typescript-eslint/recommended",
+        "plugin:@darraghor/nestjs-typed/recommended"
     ],
     root: true,
     env: {
