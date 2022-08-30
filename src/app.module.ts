@@ -6,6 +6,9 @@ import { Meetup } from "./meetups/meetups.model";
 import { MeetupsModule } from "./meetups/meetups.module";
 import { User } from "./users/users.model";
 import { UsersModule } from "./users/users.module";
+import { RolesModule } from "./roles/roles.module";
+import { Role } from "./roles/roles.model";
+import { UserRoles } from "./roles/user-roles.model";
 
 @Module({
     controllers: [],
@@ -21,11 +24,12 @@ import { UsersModule } from "./users/users.module";
             username: process.env.POSTGRES_USER,
             password: process.env.POSTGRES_PASSWORD,
             database: process.env.POSTGRES_DB,
-            models: [User, Meetup],
+            models: [User, Role, UserRoles, Meetup],
             autoLoadModels: true,
         }),
         UsersModule,
         MeetupsModule,
+        RolesModule,
     ],
 })
 export class AppModule {}
