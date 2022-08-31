@@ -4,6 +4,6 @@
     "semi": true,
     "singleQuote": false,
     "endOfLine": "crlf",
-    "printWidth": 80
+    "printWidth": 100
 }
 
