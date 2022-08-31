@@ -1,17 +1,12 @@
-import {
-    Body,
-    Controller,
-    Delete,
-    Get,
-    Param,
-    Post,
-    Put,
-} from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from "@nestjs/common";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { RolesGuard } from "../auth/roles.guard";
+import { Roles } from "../auth/roles-auth.decorator";
 
 import { CreateUserDto } from "./dto/create-user.dto";
 import { User } from "./users.model";
 import { UsersService } from "./users.service";
+import { SetRoleDto } from "./dto/set-role.dto";
 
 @ApiTags("Users")
 @Controller("users")
@@ -50,6 +45,15 @@ export class UsersController {
     @Delete("/:id")
     deleteOne(@Param("id") id: number) {
         return this.usersService.deleteUser(id);
+    }
+
+    @ApiOperation({ summary: "Set user role" })
+    @ApiResponse({ status: 200 })
+    @Roles("ADMIN")
+    @UseGuards(RolesGuard)
+    @Post("/role")
+    setRole(@Body() dto: SetRoleDto) {
+        return this.usersService.setRole(dto);
     }
 }
 
