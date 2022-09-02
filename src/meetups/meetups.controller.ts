@@ -1,12 +1,4 @@
-import {
-    Body,
-    Controller,
-    Delete,
-    Get,
-    Param,
-    Post,
-    Put,
-} from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from "@nestjs/common";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 
 import { CreateMeetupDto } from "./dto/create-meetup.dto";
@@ -28,8 +20,8 @@ export class MeetupsController {
     @ApiOperation({ summary: "Get list of meetups" })
     @ApiResponse({ status: 200, type: [Meetup] })
     @Get()
-    getAll() {
-        return this.meetupService.getAllMeetups();
+    getAll(@Query() query: any) {
+        return this.meetupService.getAllMeetups(query);
     }
 
     @ApiOperation({ summary: "Get one meetup by id" })
