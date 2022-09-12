@@ -31,8 +31,6 @@ export class MeetupsService {
     }
 
     async getAllMeetupsByValue(value: any) {
-        console.log(value);
-
         const meetups = await this.meetupRepository.findAll();
         return meetups;
     }
