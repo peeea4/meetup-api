@@ -33,39 +33,32 @@ export class UsersService {
     }
 
     async getAllUsers() {
-        const users = await this.userRepository.findAll({
+        return await this.userRepository.findAll({
             include: { all: true },
         });
-        return users;
     }
 
     async getOneUser(id: number) {
-        const user = await this.userRepository.findOne({ where: { id } });
-        return user;
+        return await this.userRepository.findOne({ where: { id } });
     }
 
     async updateUser(id: number, dto: CreateUserDto) {
-        const user = await this.userRepository.update(dto, {
-            where: { id: id },
-        });
-        return user;
+        return await this.userRepository.findOne({ where: { id } });
     }
 
     async deleteUser(id: number) {
-        const user = await this.userRepository.destroy({
+        return await this.userRepository.destroy({
             where: { id: id },
         });
-        return user;
     }
 
     async getUsersByEmail(email: string) {
-        const user = await this.userRepository.findOne({
+        return await this.userRepository.findOne({
             where: {
                 email,
             },
             include: { all: true },
         });
-        return user;
     }
 
     async setRole(dto: SetRoleDto) {
@@ -83,10 +76,8 @@ export class UsersService {
     async setUser(dto: SetMeetupDto) {
         const user = await this.userRepository.findByPk(dto.userId);
         const meetup = await this.meetupService.getMeetupById(dto.meetupId);
-        console.log(user, meetup);
 
         if (meetup && user) {
-            console.log("inside");
             await user.$add("meetups", meetup.id);
             return dto;
         }

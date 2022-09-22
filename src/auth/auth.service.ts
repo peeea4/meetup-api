@@ -40,16 +40,15 @@ export class AuthService {
         return this.generateToken(user);
     }
 
-    private async generateToken(user: User) {
-        const payload = { email: user.email, id: user.id, roles: user.roles };
+    private async generateToken({ email, id, roles }: User) {
         return {
-            token: this.jwtService.sign(payload),
+            token: this.jwtService.sign({ id, email, roles }),
         };
     }
 
-    private async validateUser(userDto: CreateUserDto) {
-        const user = await this.userService.getUsersByEmail(userDto.email);
-        const passwordEquals = await bcrypt.compare(userDto.password, user.password);
+    private async validateUser({email, password}: CreateUserDto) {
+        const user = await this.userService.getUsersByEmail(email);
+        const passwordEquals = await bcrypt.compare(password, user.password);
         if (user && passwordEquals) {
             return user;
         }

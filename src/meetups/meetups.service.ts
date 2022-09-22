@@ -13,8 +13,7 @@ export class MeetupsService {
     constructor(@InjectModel(Meetup) private meetupRepository: typeof Meetup) {}
 
     async createMeetup(dto: CreateMeetupDto) {
-        const meetup = await this.meetupRepository.create(dto);
-        return meetup;
+        return this.meetupRepository.create(dto);
     }
 
     async getAllMeetups(query: any) {
@@ -31,36 +30,31 @@ export class MeetupsService {
     }
 
     async getAllMeetupsByValue(value: any) {
-        const meetups = await this.meetupRepository.findAll();
-        return meetups;
+        return await this.meetupRepository.findAll();
     }
 
     async getOneMeetup(id: number) {
-        const meetup = await this.meetupRepository.findOne({ where: { id } });
-        return meetup;
+        return await this.meetupRepository.findOne({ where: { id } });
     }
 
     async updateMeetup(id: number, dto: CreateMeetupDto) {
-        const meetup = await this.meetupRepository.update(dto, {
+        return await this.meetupRepository.update(dto, {
             where: { id: id },
         });
-        return meetup;
     }
 
     async deleteMeetup(id: number) {
-        const meetup = await this.meetupRepository.destroy({
+        return await this.meetupRepository.destroy({
             where: { id: id },
         });
-        return meetup;
     }
 
     async getMeetupById(id: number) {
-        const meetup = await this.meetupRepository.findOne({
+        return await this.meetupRepository.findOne({
             where: {
                 id,
             },
         });
-        return meetup;
     }
 }
 
