@@ -33,7 +33,6 @@ export class User extends Model<User, UserCreationAttribute> {
     @ApiProperty({ example: "12345678", description: "Password" })
     @Column({
         type: DataType.STRING,
-        allowNull: false,
     })
     password: string;
 

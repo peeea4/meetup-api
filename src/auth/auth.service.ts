@@ -10,6 +10,18 @@ import { UsersService } from "../users/users.service";
 export class AuthService {
     constructor(private userService: UsersService, private jwtService: JwtService) {}
 
+    async googleLogin(req) {
+        const userEmail = await this.userService.getUsersByEmail(req.user.email);
+        if (userEmail) {
+            return req.user.accessToken;
+        }
+        const user = await this.userService.createUserGoogle({
+            ...req.user,
+            password: "",
+        });
+        return req.user.accessToken;
+    }
+
     async login(userDto: CreateUserDto) {
         const user = await this.validateUser(userDto);
         return this.generateToken(user);
