@@ -7,4 +7,3 @@ export class SetMeetupDto {
     @IsNumber({}, { message: "Must be a number" })
     readonly userId: number;
 }
-

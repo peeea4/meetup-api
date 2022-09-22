@@ -18,4 +18,3 @@ import { UserMeetups } from "./user-meetups.model";
     exports: [MeetupsService],
 })
 export class MeetupsModule {}
-

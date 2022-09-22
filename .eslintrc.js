@@ -1,16 +1,20 @@
 module.exports = {
     parser: "@typescript-eslint/parser",
     parserOptions: {
-        project: "tsconfig.json",
+        project: "./tsconfig.json",
         tsconfigRootDir: __dirname,
         sourceType: "module",
     },
-    plugins: ["@typescript-eslint/eslint-plugin", "simple-import-sort", "@darraghor/nestjs-typed"],
+    plugins: [
+        "@typescript-eslint/eslint-plugin",
+        "simple-import-sort",
+    ],
     extends: [
+        "airbnb",
+        "airbnb-typescript/base",
         "eslint:recommended",
         "plugin:@typescript-eslint/eslint-recommended",
         "plugin:@typescript-eslint/recommended",
-        "plugin:@darraghor/nestjs-typed/recommended"
     ],
     root: true,
     env: {
@@ -26,8 +30,17 @@ module.exports = {
         "simple-import-sort/imports": "warn",
         "simple-import-sort/exports": "warn",
         quotes: ["warn", "double"],
-        "@typescript-eslint/no-unused-vars": ["warn", { args: "none" }],
+        "@typescript-eslint/quotes": [
+            2,
+            "double",
+            { avoidEscape: true },
+        ],
+        "@typescript-eslint/no-unused-vars": [
+            "warn",
+            { args: "none" },
+        ],
         "@typescript-eslint/indent": "off",
+        "import/prefer-default-export": "off",
     },
 };
 

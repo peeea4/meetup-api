@@ -1,4 +1,8 @@
-import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import {
+    HttpException,
+    HttpStatus,
+    Injectable,
+} from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
 
 import { MeetupsService } from "../meetups/meetups.service";
@@ -40,20 +44,22 @@ export class UsersService {
     }
 
     async getOneUser(id: number) {
-        const user = await this.userRepository.findOne({ where: { id } });
+        const user = await this.userRepository.findOne({
+            where: { id },
+        });
         return user;
     }
 
     async updateUser(id: number, dto: CreateUserDto) {
         const user = await this.userRepository.update(dto, {
-            where: { id: id },
+            where: { id },
         });
         return user;
     }
 
     async deleteUser(id: number) {
         const user = await this.userRepository.destroy({
-            where: { id: id },
+            where: { id },
         });
         return user;
     }
@@ -77,12 +83,17 @@ export class UsersService {
             return dto;
         }
 
-        throw new HttpException("User or role not found", HttpStatus.NOT_FOUND);
+        throw new HttpException(
+            "User or role not found",
+            HttpStatus.NOT_FOUND,
+        );
     }
 
     async setUser(dto: SetMeetupDto) {
         const user = await this.userRepository.findByPk(dto.userId);
-        const meetup = await this.meetupService.getMeetupById(dto.meetupId);
+        const meetup = await this.meetupService.getMeetupById(
+            dto.meetupId,
+        );
         console.log(user, meetup);
 
         if (meetup && user) {
@@ -91,7 +102,9 @@ export class UsersService {
             return dto;
         }
 
-        throw new HttpException("User or meetup not found", HttpStatus.NOT_FOUND);
+        throw new HttpException(
+            "User or meetup not found",
+            HttpStatus.NOT_FOUND,
+        );
     }
 }
-

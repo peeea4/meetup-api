@@ -1,5 +1,11 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { BelongsToMany, Column, DataType, Model, Table } from "sequelize-typescript";
+import {
+    BelongsToMany,
+    Column,
+    DataType,
+    Model,
+    Table,
+} from "sequelize-typescript";
 
 import { User } from "../users/users.model";
 import { UserMeetups } from "./user-meetups.model";
@@ -49,7 +55,10 @@ export class Meetup extends Model<Meetup, MeetupCreationAttribute> {
     })
     timeAndPlace: string;
 
-    @ApiProperty({ example: ["key1", "key2"], description: "Key Words" })
+    @ApiProperty({
+        example: ["key1", "key2"],
+        description: "Key Words",
+    })
     @Column({
         type: DataType.ARRAY(DataType.STRING),
     })
@@ -58,4 +67,3 @@ export class Meetup extends Model<Meetup, MeetupCreationAttribute> {
     @BelongsToMany(() => User, () => UserMeetups)
     users: User[];
 }
-

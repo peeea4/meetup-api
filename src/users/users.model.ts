@@ -1,5 +1,11 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { BelongsToMany, Column, DataType, Model, Table } from "sequelize-typescript";
+import {
+    BelongsToMany,
+    Column,
+    DataType,
+    Model,
+    Table,
+} from "sequelize-typescript";
 
 import { Meetup } from "../meetups/meetups.model";
 import { UserMeetups } from "../meetups/user-meetups.model";
@@ -42,4 +48,3 @@ export class User extends Model<User, UserCreationAttribute> {
     @BelongsToMany(() => Meetup, () => UserMeetups)
     meetups: Meetup[];
 }
-

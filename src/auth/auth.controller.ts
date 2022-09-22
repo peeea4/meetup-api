@@ -1,5 +1,7 @@
+import {
+ Body, Controller, Get, Post, Req, UseGuards,
+} from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
-import { Body, Controller, Get, Post, Req, UseGuards } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 
 import { CreateUserDto } from "../users/dto/create-user.dto";
@@ -22,7 +24,7 @@ export class AuthController {
 
     @Get()
     @UseGuards(AuthGuard("google"))
-    async googleAuth(@Req() req) {}
+    googleAuth(@Req() req) {}
 
     @Get("/google/callback")
     @UseGuards(AuthGuard("google"))
@@ -30,4 +32,3 @@ export class AuthController {
         return this.authService.googleLogin(req);
     }
 }
-
