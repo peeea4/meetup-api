@@ -1,7 +1,17 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from "@nestjs/common";
+import {
+    Body,
+    Controller,
+    Delete,
+    Get,
+    Param,
+    Post,
+    Put,
+    Query,
+    UseGuards,
+} from "@nestjs/common";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
-import { JwtAuthGuard } from "../auth/jwt-auth.guard";
 
+import { JwtAuthGuard } from "../auth/jwt-auth.guard";
 import { CreateMeetupDto } from "./dto/create-meetup.dto";
 import { Meetup } from "./meetups.model";
 import { MeetupsService } from "./meetups.service";
@@ -39,7 +49,10 @@ export class MeetupsController {
     @ApiResponse({ status: 200, type: [Meetup] })
     @UseGuards(JwtAuthGuard)
     @Put("/:id")
-    updateOne(@Body() meetupDto: CreateMeetupDto, @Param("id") id: number) {
+    updateOne(
+        @Body() meetupDto: CreateMeetupDto,
+        @Param("id") id: number,
+    ) {
         return this.meetupService.updateMeetup(id, meetupDto);
     }
 
@@ -51,4 +64,3 @@ export class MeetupsController {
         return this.meetupService.deleteMeetup(id);
     }
 }
-

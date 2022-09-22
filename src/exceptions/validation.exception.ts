@@ -5,4 +5,3 @@ export class ValidationException extends HttpException {
         super(info, HttpStatus.BAD_REQUEST);
     }
 }
-

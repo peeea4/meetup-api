@@ -4,13 +4,13 @@ import { InjectModel } from "@nestjs/sequelize";
 import { CreateMeetupDto } from "./dto/create-meetup.dto";
 import { Meetup } from "./meetups.model";
 
-const byField = (field, ascending) => {
-    return (a, b) => (a[field] > b[field] ? (ascending ? -1 : 1) : ascending ? 1 : -1);
-};
+const byField = (field, ascending) => (a, b) => (a[field] > b[field] ? (ascending ? -1 : 1) : ascending ? 1 : -1);
 
 @Injectable()
 export class MeetupsService {
-    constructor(@InjectModel(Meetup) private meetupRepository: typeof Meetup) {}
+    constructor(
+        @InjectModel(Meetup) private meetupRepository: typeof Meetup,
+    ) {}
 
     async createMeetup(dto: CreateMeetupDto) {
         return this.meetupRepository.create(dto);
@@ -21,12 +21,11 @@ export class MeetupsService {
         if (query.sort) {
             meetups = await this.meetupRepository.findAll();
             return meetups.sort(byField(query.sort, true));
-        } else {
-            meetups = await this.meetupRepository.findAll({
-                where: query,
-            });
-            return meetups;
         }
+        meetups = await this.meetupRepository.findAll({
+            where: query,
+        });
+        return meetups;
     }
 
     async getAllMeetupsByValue(value: any) {
@@ -57,4 +56,3 @@ export class MeetupsService {
         });
     }
 }
-

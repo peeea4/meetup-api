@@ -1,6 +1,6 @@
 import { STRING_VALIDATION_MSG } from './../../constant';
 import { ApiProperty } from "@nestjs/swagger";
-import { IsArray,IsString } from "class-validator";
+import { IsArray, IsString } from "class-validator";
 
 export class CreateMeetupDto {
     @ApiProperty({
@@ -24,8 +24,10 @@ export class CreateMeetupDto {
     @IsString({ message: STRING_VALIDATION_MSG })
     readonly timeAndPlace: string;
 
-    @ApiProperty({ example: ["key1", "key2"], description: "Key Words" })
+    @ApiProperty({
+        example: ["key1", "key2"],
+        description: "Key Words",
+    })
     @IsArray({ message: "Must be an array" })
     readonly keyWords: string[];
 }
-

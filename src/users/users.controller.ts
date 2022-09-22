@@ -1,4 +1,13 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from "@nestjs/common";
+import {
+    Body,
+    Controller,
+    Delete,
+    Get,
+    Param,
+    Post,
+    Put,
+    UseGuards,
+} from "@nestjs/common";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 
 import { RolesGuard } from "../auth/roles.guard";
@@ -38,7 +47,10 @@ export class UsersController {
     @ApiOperation({ summary: "Update one user by id" })
     @ApiResponse({ status: 200, type: [User] })
     @Put("/:id")
-    updateOne(@Body() userDto: CreateUserDto, @Param("id") id: number) {
+    updateOne(
+        @Body() userDto: CreateUserDto,
+        @Param("id") id: number,
+    ) {
         return this.usersService.updateUser(id, userDto);
     }
 
@@ -67,4 +79,3 @@ export class UsersController {
         return this.usersService.setUser(dto);
     }
 }
-

@@ -21,4 +21,3 @@ import { GoogleStrategy } from "./google.strategy";
     exports: [AuthService, JwtModule],
 })
 export class AuthModule {}
-

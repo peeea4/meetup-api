@@ -1,4 +1,9 @@
-import { Body, HttpException, HttpStatus, Injectable, UnauthorizedException } from "@nestjs/common";
+import {
+    HttpException,
+    HttpStatus,
+    Injectable,
+    UnauthorizedException,
+} from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import * as bcrypt from "bcryptjs";
 
@@ -8,10 +13,15 @@ import { UsersService } from "../users/users.service";
 
 @Injectable()
 export class AuthService {
-    constructor(private userService: UsersService, private jwtService: JwtService) {}
+    constructor(
+        private userService: UsersService,
+        private jwtService: JwtService,
+    ) {}
 
     async googleLogin(req) {
-        const userEmail = await this.userService.getUsersByEmail(req.user.email);
+        const userEmail = await this.userService.getUsersByEmail(
+            req.user.email,
+        );
         if (userEmail) {
             return req.user.accessToken;
         }
@@ -28,9 +38,14 @@ export class AuthService {
     }
 
     async registration(userDto: CreateUserDto) {
-        const userEmail = await this.userService.getUsersByEmail(userDto.email);
+        const userEmail = await this.userService.getUsersByEmail(
+            userDto.email,
+        );
         if (userEmail) {
-            throw new HttpException("User with this email already exists", HttpStatus.BAD_REQUEST);
+            throw new HttpException(
+                "User with this email already exists",
+                HttpStatus.BAD_REQUEST,
+            );
         }
         const hashPassword = await bcrypt.hash(userDto.password, 5);
         const user = await this.userService.createUser({
@@ -57,4 +72,3 @@ export class AuthService {
         });
     }
 }
-

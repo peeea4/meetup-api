@@ -1,9 +1,19 @@
-import { Column, DataType, ForeignKey, Model, Table } from "sequelize-typescript";
+import {
+    Column,
+    DataType,
+    ForeignKey,
+    Model,
+    Table,
+} from "sequelize-typescript";
 
 import { User } from "../users/users.model";
 import { Role } from "./roles.model";
 
-@Table({ tableName: "user-roles", createdAt: false, updatedAt: false })
+@Table({
+    tableName: "user-roles",
+    createdAt: false,
+    updatedAt: false,
+})
 export class UserRoles extends Model<UserRoles> {
     @Column({
         type: DataType.INTEGER,
@@ -25,4 +35,3 @@ export class UserRoles extends Model<UserRoles> {
     })
     userId: number;
 }
-

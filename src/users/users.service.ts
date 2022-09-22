@@ -1,4 +1,8 @@
-import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import {
+    HttpException,
+    HttpStatus,
+    Injectable,
+} from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
 
 import { MeetupsService } from "../meetups/meetups.service";
@@ -70,7 +74,10 @@ export class UsersService {
             return dto;
         }
 
-        throw new HttpException("User or role not found", HttpStatus.NOT_FOUND);
+        throw new HttpException(
+            "User or role not found",
+            HttpStatus.NOT_FOUND,
+        );
     }
 
     async setUser(dto: SetMeetupDto) {
@@ -82,7 +89,9 @@ export class UsersService {
             return dto;
         }
 
-        throw new HttpException("User or meetup not found", HttpStatus.NOT_FOUND);
+        throw new HttpException(
+            "User or meetup not found",
+            HttpStatus.NOT_FOUND,
+        );
     }
 }
-

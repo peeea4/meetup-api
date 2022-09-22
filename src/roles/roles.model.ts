@@ -1,5 +1,11 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { BelongsToMany, Column, DataType, Model, Table } from "sequelize-typescript";
+import {
+    BelongsToMany,
+    Column,
+    DataType,
+    Model,
+    Table,
+} from "sequelize-typescript";
 
 import { User } from "../users/users.model";
 import { UserRoles } from "./user-roles.model";
@@ -28,7 +34,10 @@ export class Role extends Model<Role, RoleCreationAttribute> {
     })
     value: string;
 
-    @ApiProperty({ example: "Admin", description: "Role description" })
+    @ApiProperty({
+        example: "Admin",
+        description: "Role description",
+    })
     @Column({
         type: DataType.STRING,
         allowNull: false,
@@ -38,4 +47,3 @@ export class Role extends Model<Role, RoleCreationAttribute> {
     @BelongsToMany(() => User, () => UserRoles)
     users: User;
 }
-
