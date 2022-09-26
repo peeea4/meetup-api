@@ -3,8 +3,8 @@ import {
 } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 
-import { CreateRoleDto } from "./dto/create-role.dto";
-import { RolesService } from "./roles.service";
+import { CreateRoleDto } from "../dto/create-role.dto";
+import { RolesService } from "../services/roles.service";
 
 @ApiTags("Roles")
 @Controller("roles")

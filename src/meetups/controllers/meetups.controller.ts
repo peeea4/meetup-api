@@ -11,10 +11,10 @@ import {
 } from "@nestjs/common";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 
-import { JwtAuthGuard } from "../auth/jwt-auth.guard";
-import { CreateMeetupDto } from "./dto/create-meetup.dto";
-import { Meetup } from "./meetups.model";
-import { MeetupsService } from "./meetups.service";
+import { JwtAuthGuard } from "../../auth/jwt-auth.guard";
+import { CreateMeetupDto } from "../dto/create-meetup.dto";
+import { Meetup } from "../meetups.model";
+import { MeetupsService } from "../services/meetups.service";
 
 @ApiTags("Meetups")
 @Controller("meetups")
@@ -53,7 +53,7 @@ export class MeetupsController {
         @Body() meetupDto: CreateMeetupDto,
         @Param("id") id: number,
     ) {
-        return this.meetupService.updateMeetup(id, meetupDto);
+        return this.meetupService.updateMeetup(meetupDto, id);
     }
 
     @ApiOperation({ summary: "Delete one meetup by id" })

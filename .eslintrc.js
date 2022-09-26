@@ -41,6 +41,9 @@ module.exports = {
         ],
         "@typescript-eslint/indent": "off",
         "import/prefer-default-export": "off",
+        "linebreak-style": ["warn", "unix"],
+        "import/no-cycle": "off",
+        "no-nested-ternary": "off",
     },
 };
 

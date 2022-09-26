@@ -1,6 +1,7 @@
-import { STRING_VALIDATION_MSG } from './../../constant';
 import { ApiProperty } from "@nestjs/swagger";
 import { IsArray, IsString } from "class-validator";
+
+import { STRING_VALIDATION_MSG } from "../../constant";
 
 export class CreateMeetupDto {
     @ApiProperty({

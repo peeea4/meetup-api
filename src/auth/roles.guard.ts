@@ -1,4 +1,3 @@
-import { ROLES_KEY } from "./../constant";
 import {
     CanActivate,
     ExecutionContext,
@@ -10,6 +9,8 @@ import {
 import { Reflector } from "@nestjs/core";
 import { JwtService } from "@nestjs/jwt";
 import { Observable } from "rxjs";
+
+import { ROLES_KEY } from "../constant";
 
 @Injectable()
 export class RolesGuard implements CanActivate {
@@ -39,9 +40,7 @@ export class RolesGuard implements CanActivate {
             }
             const user = this.jwtService.verify(token);
             req.user = user;
-            return user.roles.some((role) =>
-                requiredRoles.includes(role.value),
-            );
+            return user.roles.some((role) => requiredRoles.includes(role.value));
         } catch (e) {
             throw new HttpException(
                 "No access",
@@ -50,4 +49,3 @@ export class RolesGuard implements CanActivate {
         }
     }
 }
-

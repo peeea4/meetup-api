@@ -10,13 +10,13 @@ import {
 } from "@nestjs/common";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 
-import { RolesGuard } from "../auth/roles.guard";
-import { Roles } from "../auth/roles-auth.decorator";
-import { CreateUserDto } from "./dto/create-user.dto";
-import { SetMeetupDto } from "./dto/set-meetup.dto";
-import { SetRoleDto } from "./dto/set-role.dto";
-import { User } from "./users.model";
-import { UsersService } from "./users.service";
+import { RolesGuard } from "../../auth/roles.guard";
+import { Roles } from "../../auth/roles-auth.decorator";
+import { CreateUserDto } from "../dto/create-user.dto";
+import { SetMeetupDto } from "../dto/set-meetup.dto";
+import { SetRoleDto } from "../dto/set-role.dto";
+import { UsersService } from "../services/users.service";
+import { User } from "../users.model";
 
 @ApiTags("Users")
 @Controller("users")
@@ -51,7 +51,7 @@ export class UsersController {
         @Body() userDto: CreateUserDto,
         @Param("id") id: number,
     ) {
-        return this.usersService.updateUser(id, userDto);
+        return this.usersService.updateUser(userDto, id);
     }
 
     @ApiOperation({ summary: "Delete one user by id" })
@@ -75,7 +75,7 @@ export class UsersController {
     @Roles("USER")
     @UseGuards(RolesGuard)
     @Post("/meetup")
-    setMeetup(@Body() dto: SetMeetupDto) {
+    setUser(@Body() dto: SetMeetupDto) {
         return this.usersService.setUser(dto);
     }
 }

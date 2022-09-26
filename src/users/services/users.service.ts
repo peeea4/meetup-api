@@ -5,12 +5,12 @@ import {
 } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
 
-import { MeetupsService } from "../meetups/meetups.service";
-import { RolesService } from "../roles/roles.service";
-import { CreateUserDto } from "./dto/create-user.dto";
-import { SetMeetupDto } from "./dto/set-meetup.dto";
-import { SetRoleDto } from "./dto/set-role.dto";
-import { User } from "./users.model";
+import { MeetupsService } from "../../meetups/services/meetups.service";
+import { RolesService } from "../../roles/services/roles.service";
+import { CreateUserDto } from "../dto/create-user.dto";
+import { SetMeetupDto } from "../dto/set-meetup.dto";
+import { SetRoleDto } from "../dto/set-role.dto";
+import { User } from "../users.model";
 
 @Injectable()
 export class UsersService {
@@ -37,27 +37,35 @@ export class UsersService {
     }
 
     async getAllUsers() {
-        return await this.userRepository.findAll({
+        return this.userRepository.findAll({
             include: { all: true },
         });
     }
 
     async getOneUser(id: number) {
-        return await this.userRepository.findOne({ where: { id } });
+        const user = await this.userRepository.findOne({
+            where: { id },
+        });
+        return user;
     }
 
-    async updateUser(id: number, dto: CreateUserDto) {
-        return await this.userRepository.findOne({ where: { id } });
+    async updateUser(dto: CreateUserDto, id: number) {
+        await this.userRepository.update(dto, {
+            where: { id },
+        });
+        return this.userRepository.findOne({
+            where: { id },
+        });
     }
 
     async deleteUser(id: number) {
-        return await this.userRepository.destroy({
-            where: { id: id },
+        return this.userRepository.destroy({
+            where: { id },
         });
     }
 
     async getUsersByEmail(email: string) {
-        return await this.userRepository.findOne({
+        return this.userRepository.findOne({
             where: {
                 email,
             },
@@ -82,7 +90,9 @@ export class UsersService {
 
     async setUser(dto: SetMeetupDto) {
         const user = await this.userRepository.findByPk(dto.userId);
-        const meetup = await this.meetupService.getMeetupById(dto.meetupId);
+        const meetup = await this.meetupService.getOneMeetup(
+            dto.meetupId,
+        );
 
         if (meetup && user) {
             await user.$add("meetups", meetup.id);

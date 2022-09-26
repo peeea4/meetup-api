@@ -9,8 +9,8 @@ import {
 import { AuthGuard } from "@nestjs/passport";
 import { ApiTags } from "@nestjs/swagger";
 
-import { CreateUserDto } from "../users/dto/create-user.dto";
-import { AuthService } from "./auth.service";
+import { CreateUserDto } from "../../users/dto/create-user.dto";
+import { AuthService } from "../services/auth.service";
 
 @ApiTags("Authorization")
 @Controller("auth")
@@ -29,7 +29,7 @@ export class AuthController {
 
     @Get()
     @UseGuards(AuthGuard("google"))
-    googleAuth(@Req() req) {}
+    static googleAuth(@Req() req) {}
 
     @Get("/google/callback")
     @UseGuards(AuthGuard("google"))
@@ -37,4 +37,3 @@ export class AuthController {
         return this.authService.googleLogin(req);
     }
 }
-
